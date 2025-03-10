@@ -15,6 +15,7 @@
 	import AllDayContainer from '../components/AllDayContainer.svelte';
 	import GoogleCalendarPlugin from '../../GoogleCalendarPlugin';
 	import { VIEW_TYPE_GOOGLE_CALENDAR_EVENT_DETAILS } from '../../view/EventDetailsView';
+	import { createNoteFromEvent } from "src/helper/AutoEventNoteCreator";
 
 	export let codeBlockOptions: CodeBlockOptions;
 	export let isObsidianView = false;
@@ -62,10 +63,11 @@
 				refreshData(date);
 			})
 		} else {
-			new EventDetailsModal(event, () => {
-				googleClearCachedEvents();
-				refreshData(date);
-			}).open();
+			createNoteFromEvent(event);
+			// new EventDetailsModal(event, () => {
+			// 	googleClearCachedEvents();
+			// 	refreshData(date);
+			// }).open();
 		}
 	};
 
