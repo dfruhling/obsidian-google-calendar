@@ -63,7 +63,7 @@
 				refreshData(date);
 			})
 		} else {
-			createNoteFromEvent(event);
+			createNoteFromEvent(event, plugin.settings.defaultFolder, plugin.settings.defaultTemplate);
 			// new EventDetailsModal(event, () => {
 			// 	googleClearCachedEvents();
 			// 	refreshData(date);
