@@ -51,6 +51,16 @@
 
 	const refreshData = async (date: moment.Moment) => {
 		if (loading) return;
+
+		/* If day has changed, make the timeline view show hte current date */
+		const today = window.moment();
+		if (today.day() !== startDate.day()) {
+			startDate = today;
+			date = startDate.clone();
+			dateOffset = 0;
+			codeBlockOptions.date = window.moment().toString();
+		}
+
 		loading = true;
 		await getEvents(date);
 		loading = false;
@@ -63,7 +73,10 @@
 				refreshData(date);
 			})
 		} else {
-			createNoteFromEvent(event, plugin.settings.defaultFolder, plugin.settings.defaultTemplate);
+			const notePromise = createNoteFromEvent(event, plugin.settings.defaultFolder, plugin.settings.defaultTemplate);
+			notePromise.then(note => {
+				app.workspace.getLeaf(true).openFile(note);
+			})
 			// new EventDetailsModal(event, () => {
 			// 	googleClearCachedEvents();
 			// 	refreshData(date);
