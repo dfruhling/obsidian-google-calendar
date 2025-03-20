@@ -52,7 +52,7 @@
 	const refreshData = async (date: moment.Moment) => {
 		if (loading) return;
 
-		/* If day has changed, make the timeline view show hte current date */
+		/* If day has changed, make the timeline view show the current date */
 		const today = window.moment();
 		if (today.day() !== startDate.day()) {
 			startDate = today;
