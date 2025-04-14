@@ -93,6 +93,8 @@
 		date = codeBlockOptions.navigation
 			? startDate.clone().local().add(dateOffset, 'days')
 			: startDate;
+		const dateWithOffset = date.clone().add(codeBlockOptions.offset, 'days').format('YYYY-MM-DD');
+		window.localStorage.setItem('gcal-timeline-date', dateWithOffset);
 
 		if (interval) clearInterval(interval);
 		interval = setInterval(() => refreshData(date), 5000);
