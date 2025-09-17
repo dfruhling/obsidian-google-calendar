@@ -49,11 +49,16 @@
         if(width < 60) {
             baseList.push("textSmall")
         }
+        const iAmNotAttending = location.event?.attendees?.find(att => att.email === 'david.fruhling@humaninterest.com')?.responseStatus === 'declined';
         if(window.moment(location.event.end.date ?? location.event.end.dateTime).isSameOrBefore(window.moment())) {
             baseList.push("googleCalendarEvent_Past")
+        } else if (iAmNotAttending) {
+            baseList.push("googleCalendarEvent_NotAttending")
         }
+
         return baseList.join(" ");
     }
+    {console.log({event: location.event})}
 
 </script>
 <div
@@ -102,6 +107,11 @@ googleCalendarName_Id_{location.event.parent.id}
     
     .googleCalendarEvent_Past {
         opacity: 0.5;
+    }
+
+    .googleCalendarEvent_NotAttending {
+        opacity: 0.7;
+        text-decoration: line-through;
     }
 
     .textSmall {
