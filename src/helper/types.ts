@@ -35,6 +35,7 @@ export interface GoogleCalendarPluginSettings {
 	ignorePatternList: string[];
     insertTemplates: Template[];
     useDefaultTemplate: boolean;
+	emailAddress: string;
     
     // Daily note settings
     activateDailyNoteAddon: boolean;

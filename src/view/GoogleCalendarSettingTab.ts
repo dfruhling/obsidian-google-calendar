@@ -528,6 +528,17 @@ export class GoogleCalendarSettingTab extends PluginSettingTab {
 						});
 					});
 			});
+
+			new Setting(containerEl)
+				.setName("Email address")
+				.setDesc("Used to determine whether you are attending the meeting")
+				.addText(text => {
+					text.setValue(this.plugin.settings.emailAddress);
+					text.onChange(async value => {
+						this.plugin.settings.emailAddress = value;
+						await this.plugin.saveSettings();
+					});
+				})
 		}
 	}
 }

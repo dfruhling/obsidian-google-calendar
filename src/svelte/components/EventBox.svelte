@@ -6,11 +6,13 @@
 	import { updateEvent } from "../../googleApi/GoogleUpdateEvent";
 	import { googleClearCachedEvents } from "../../googleApi/GoogleListEvents";
 	import { log } from "../../helper/log";
+    import GoogleCalendarPlugin from "../../GoogleCalendarPlugin";
 
     export let location: Location;
 	export let goToEvent;
     export let timelineHeight: number
     export let timelineWidth: number
+    let plugin = GoogleCalendarPlugin.getInstance();
     let realWidth = 0;
     const updateEventWithPosition = async (drag: MouseControlData) => {
 		const top = drag.endState.top;
@@ -49,7 +51,8 @@
         if(width < 60) {
             baseList.push("textSmall")
         }
-        const iAmNotAttending = location.event?.attendees?.find(att => att.email === 'david.fruhling@humaninterest.com')?.responseStatus === 'declined';
+        const userEmail = plugin?.settings?.emailAddress;
+        const iAmNotAttending = location.event?.attendees?.find(att => att.email.toLowerCase() === userEmail.toLowerCase())?.responseStatus === 'declined';
         if(window.moment(location.event.end.date ?? location.event.end.dateTime).isSameOrBefore(window.moment())) {
             baseList.push("googleCalendarEvent_Past")
         } else if (iAmNotAttending) {
@@ -58,7 +61,6 @@
 
         return baseList.join(" ");
     }
-    {console.log({event: location.event})}
 
 </script>
 <div
@@ -112,6 +114,7 @@ googleCalendarName_Id_{location.event.parent.id}
     .googleCalendarEvent_NotAttending {
         opacity: 0.7;
         text-decoration: line-through;
+        background-color: #ffffff !important;
     }
 
     .textSmall {
