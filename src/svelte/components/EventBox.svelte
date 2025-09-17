@@ -53,10 +53,10 @@
         }
         const userEmail = plugin?.settings?.emailAddress;
         const iAmNotAttending = location.event?.attendees?.find(att => att.email.toLowerCase() === userEmail.toLowerCase())?.responseStatus === 'declined';
-        if(window.moment(location.event.end.date ?? location.event.end.dateTime).isSameOrBefore(window.moment())) {
-            baseList.push("googleCalendarEvent_Past")
-        } else if (iAmNotAttending) {
+        if (iAmNotAttending) {
             baseList.push("googleCalendarEvent_NotAttending")
+        } else if(window.moment(location.event.end.date ?? location.event.end.dateTime).isSameOrBefore(window.moment())) {
+            baseList.push("googleCalendarEvent_Past")
         }
 
         return baseList.join(" ");
