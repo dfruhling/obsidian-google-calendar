@@ -97,8 +97,10 @@ const injectEventDetails = (event: GoogleEvent, inputText: string): string => {
     output.forEach(match => {
         if (match) {
             let newContent = "";
-
-            if (match[1] == "attendees") {
+            
+            if (match[1] == "attendees.json") {
+                newContent = JSON.stringify(event.attendees);
+            } else if (match[1] == "attendees") {
                 const array = _.get(event, match[1], "");
                 for (let i = 0; i < array.length; i++) {
                     if (array[i].displayName) {
