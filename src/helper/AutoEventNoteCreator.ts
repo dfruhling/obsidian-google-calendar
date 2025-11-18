@@ -109,6 +109,8 @@ const injectEventDetails = (event: GoogleEvent, inputText: string): string => {
                         newContent += `- [[@${array[i].email}]]\n`;
                     }
                 }
+            } else if (match[1] == "attachments.json") {
+                newContent = JSON.stringify(event.attachments);
             } else if (match[1] == "attachments") {
                 const array = _.get(event, match[1], "");
                 for (let i = 0; i < array.length; i++) {
