@@ -99,7 +99,7 @@ const injectEventDetails = (event: GoogleEvent, inputText: string): string => {
             let newContent = "";
             
             if (match[1] == "attendees.json") {
-                newContent = JSON.stringify(event.attendees);
+                newContent = event.attendees ?JSON.stringify(event.attendees) : "[]";
             } else if (match[1] == "attendees") {
                 const array = _.get(event, match[1], "");
                 for (let i = 0; i < array.length; i++) {
@@ -110,7 +110,7 @@ const injectEventDetails = (event: GoogleEvent, inputText: string): string => {
                     }
                 }
             } else if (match[1] == "attachments.json") {
-                newContent = JSON.stringify(event.attachments);
+                newContent = event.attachments ? JSON.stringify(event.attachments) : "[]";
             } else if (match[1] == "attachments") {
                 const array = _.get(event, match[1], "");
                 for (let i = 0; i < array.length; i++) {
