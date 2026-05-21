@@ -120,6 +120,8 @@ const injectEventDetails = (event: GoogleEvent, inputText: string): string => {
                         newContent += `- [${array[i].fileUrl}](${array[i].fileUrl})\n`;
                     }
                 }
+            } else if (match[1] == "json") {
+                newContent = JSON.stringify(event);
             } else {
                 newContent = _.get(event, match[1], "");
             }
